@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — Tiens Electronics</title>
+<meta name="description" content="Complete your order with Tiens Electronics. Pay on delivery or by bank transfer.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tiens Electronics">
+<meta property="og:title" content="Checkout — Tiens Electronics">
+<meta property="og:description" content="Complete your order with Tiens Electronics. Pay on delivery or by bank transfer.">
+<meta name="theme-color" content="#1d5fb8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="checkout">
+<div id="site-header"></div>
+<main>
+
+<div class="container" style="padding-top:44px"><h1 class="h2" style="margin-top:0">Checkout</h1>
+<div class="empty" id="co-empty" style="margin-top:32px" hidden><p style="font-size:18px">Your cart is empty.</p><a class="btn btn-y" href="shop.html" style="margin-top:18px">Go to shop</a></div>
+<div class="cart-wrap" id="co-main">
+<form id="coform" class="form">
+<h3 style="font-size:22px">Your details</h3>
+<div class="f2"><div class="field"><label for="a1">Full name</label><input class="inp" id="a1" name="name" required autocomplete="name"></div><div class="field"><label for="a2">Phone number</label><input class="inp" id="a2" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[+0-9 \(\)\-]{10,20}" title="Enter a phone number, e.g. 0803 123 4567" placeholder="e.g. 0803 123 4567"></div></div>
+<div class="field"><label for="a3">Email (optional)</label><input class="inp" id="a3" name="email" type="email" autocomplete="email"></div>
+<h3 style="font-size:22px;margin-top:10px">Delivery method</h3>
+<label class="opt"><input type="radio" name="delivery" value="Delivery" checked><span><b>Delivery to my address</b><small>We deliver — and can install. Fee confirmed by our team.</small></span></label>
+<label class="opt"><input type="radio" name="delivery" value="Pickup"><span><b>Pickup</b><small>Collect from 17/19 Allen Avenue, Ikeja, Lagos.</small></span></label>
+<div id="addrbox" class="form"><div class="field"><label for="a4">Delivery address</label><input class="inp" id="a4" name="address" autocomplete="street-address"></div>
+<div class="f2"><div class="field"><label for="a5">City</label><input class="inp" id="a5" name="city"></div><div class="field"><label for="a6">State</label><input class="inp" id="a6" name="state"></div></div></div>
+<h3 style="font-size:22px;margin-top:10px">Payment method</h3>
+<label class="opt"><input type="radio" name="payment" value="Pay on delivery" checked><span><b>Pay on delivery</b><small>Pay when your order arrives.</small></span></label>
+<label class="opt"><input type="radio" name="payment" value="Bank transfer"><span><b>Bank transfer</b><small>We'll send our account details on WhatsApp when we confirm your order.</small></span></label>
+<div class="field"><label for="a7">Order notes (optional)</label><textarea class="inp" id="a7" name="notes" style="height:100px"></textarea></div>
+<button class="btn btn-y" type="submit" id="place">Place Order via WhatsApp</button>
+<p class="note" style="margin-top:0">This opens WhatsApp with your order ready to send to our team. No payment is taken online.</p>
+</form>
+<aside class="sum"><h3>Your order</h3><div id="olines"></div><div class="tot"><span>Total</span><span id="otot"></span></div><a href="cart.html" style="display:block;text-align:center;margin-top:16px;font-weight:600;color:#1d5fb8">← Edit cart</a></aside></div>
+<div class="done" id="co-done" hidden><div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20l1.2-4.4A8.4 8.4 0 1 1 20 11.5z"/></svg></div>
+<h2 class="h2" style="font-size:36px">One last step: send your order</h2><p class="lead2" style="margin:12px auto">Order reference <b id="refno"></b>. We've opened WhatsApp with your order filled in. Press <b>send</b> there so our team receives it and confirms delivery and payment.</p>
+<div class="hero-actions" style="justify-content:center"><a class="btn btn-y" id="wa" target="_blank" rel="noopener">Open WhatsApp again</a><a class="btn btn-o" id="mailo">Send by email instead</a></div>
+<div class="hero-actions" style="justify-content:center;margin-top:12px"><button class="btn btn-d" id="sentb" type="button">I've sent my order</button><button class="btn btn-o" id="editb" type="button" style="background:transparent">Edit details</button></div></div>
+<div class="done" id="co-thanks" hidden><div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+<h2 class="h2" style="font-size:36px">Thank you for your order</h2><p class="lead2" style="margin:12px auto">Order <b id="refno2"></b> is with our team. We'll contact you shortly to confirm delivery and payment.</p>
+<div class="hero-actions" style="justify-content:center"><a class="btn btn-y" href="shop.html">Continue shopping</a><a class="btn btn-o" href="index.html">Back to Home</a></div></div></div>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+</body>
+</html>
