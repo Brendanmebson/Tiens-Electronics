@@ -13,16 +13,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body data-page="checkout">
 <div id="site-header"></div>
 <main>
 
 <div class="container" style="padding-top:44px"><h1 class="h2" style="margin-top:0">Checkout</h1>
-<div class="empty" id="co-empty" style="margin-top:32px" hidden><p style="font-size:18px">Your cart is empty.</p><a class="btn btn-y" href="shop" style="margin-top:18px">Go to shop</a></div>
+<div class="empty" id="co-empty" style="margin-top:32px" hidden><p style="font-size:18px">Your cart is empty.</p><a class="btn btn-y" href="/shop" style="margin-top:18px">Go to shop</a></div>
 <div class="cart-wrap" id="co-main">
 <form id="coform" class="form">
 <h3 style="font-size:22px">Your details</h3>
@@ -40,16 +40,16 @@
 <button class="btn btn-y" type="submit" id="place">Place Order via WhatsApp</button>
 <p class="note" style="margin-top:0">This opens WhatsApp with your order ready to send to our team. No payment is taken online.</p>
 </form>
-<aside class="sum"><h3>Your order</h3><div id="olines"></div><div class="tot"><span>Total</span><span id="otot"></span></div><a href="cart" style="display:block;text-align:center;margin-top:16px;font-weight:600;color:#1d5fb8">← Edit cart</a></aside></div>
+<aside class="sum"><h3>Your order</h3><div id="olines"></div><div class="tot"><span>Total</span><span id="otot"></span></div><a href="/cart" style="display:block;text-align:center;margin-top:16px;font-weight:600;color:#1d5fb8">← Edit cart</a></aside></div>
 <div class="done" id="co-done" hidden><div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20l1.2-4.4A8.4 8.4 0 1 1 20 11.5z"/></svg></div>
 <h2 class="h2" style="font-size:36px">One last step: send your order</h2><p class="lead2" style="margin:12px auto">Order reference <b id="refno"></b>. We've opened WhatsApp with your order filled in. Press <b>send</b> there so our team receives it and confirms delivery and payment.</p>
 <div class="hero-actions" style="justify-content:center"><a class="btn btn-y" id="wa" target="_blank" rel="noopener">Open WhatsApp again</a><a class="btn btn-o" id="mailo">Send by email instead</a></div>
 <div class="hero-actions" style="justify-content:center;margin-top:12px"><button class="btn btn-d" id="sentb" type="button">I've sent my order</button><button class="btn btn-o" id="editb" type="button" style="background:transparent">Edit details</button></div></div>
 <div class="done" id="co-thanks" hidden><div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
 <h2 class="h2" style="font-size:36px">Thank you for your order</h2><p class="lead2" style="margin:12px auto">Order <b id="refno2"></b> is with our team. We'll contact you shortly to confirm delivery and payment.</p>
-<div class="hero-actions" style="justify-content:center"><a class="btn btn-y" href="shop">Continue shopping</a><a class="btn btn-o" href="./">Back to Home</a></div></div></div>
+<div class="hero-actions" style="justify-content:center"><a class="btn btn-y" href="/shop">Continue shopping</a><a class="btn btn-o" href="/">Back to Home</a></div></div></div>
 </main>
 <div id="site-footer"></div>
-<script src="app.js"></script>
+<script src="/app.js"></script>
 </body>
 </html>
