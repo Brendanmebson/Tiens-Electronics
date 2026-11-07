@@ -79,7 +79,16 @@ function toast(msg) {
 }
 
 /* ================= shared header / footer ================= */
-const NAV = [['index', 'Home', 'index.html'], ['services', 'Services', 'services.html'], ['appliances', 'Appliances', 'appliances.html'], ['hvac', 'HVAC', 'hvac.html'], ['repairs', 'Repairs', 'repairs.html'], ['about', 'About Us', 'about.html'], ['shop', 'Shop', 'shop.html'], ['contact', 'Contact Us', 'contact.html']];
+const SERVICES = [['appliances', 'Appliances', 'appliances'], ['hvac', 'HVAC', 'hvac'], ['repairs', 'Repairs', 'repairs']];
+const NAV = [['index', 'Home', './'], ['services', 'Services', 'services', SERVICES], ['about', 'About Us', 'about'], ['shop', 'Shop', 'shop'], ['contact', 'Contact Us', 'contact']];
+const CHEVRON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+const navLink = ([k, l, h], active) => `<a href="${h}" class="${k === active ? 'active' : ''}">${l}</a>`;
+const navItem = (item, active) => {
+  const [k, l, h, children] = item;
+  if (!children) return navLink(item, active);
+  const inGroup = k === active || children.some(([ck]) => ck === active);
+  return `<div class="dd"><a href="${h}" class="${inGroup ? 'active' : ''}">${l}</a><button type="button" class="dd-btn" aria-expanded="false" aria-label="Show ${l} menu">${CHEVRON}</button><div class="dd-menu">${children.map(c => navLink(c, active)).join('')}</div></div>`;
+};
 /* built-in logo: blue badge with a yellow "T" whose stem is a lightning bolt, plus the wordmark */
 const MARK = '<svg class="mark" viewBox="0 0 48 48" width="42" height="42" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#1d5fb8"/><rect x="12" y="10" width="24" height="6" rx="2" fill="#f9d54c"/><path d="M21.5 16h8l-3 9h5.5L20.5 40l3-11H17z" fill="#f9d54c"/></svg>';
 const BRAND = `${MARK}<span class="brand"><span class="brand-name">Tiens</span><span class="brand-sub">Electronics &amp; Technical Services</span></span>`;
@@ -90,18 +99,19 @@ function renderChrome() {
   const active = (page === 'product' || page === 'cart' || page === 'checkout') ? 'shop' : page;
   const logo = CONFIG.logo ? `<img src="${esc(CONFIG.logo)}" alt="">` : BRAND;
   $('#site-header').innerHTML = `<header class="hdr"><div class="container hdr-in">
-  <a class="logo" href="index.html" aria-label="${esc(CONFIG.name)} — Home">${logo}</a>
-  <nav class="nav" id="nav">${NAV.map(([k, l, h]) => `<a href="${h}" class="${k === active ? 'active' : ''}">${l}</a>`).join('')}</nav>
+  <a class="logo" href="./" aria-label="${esc(CONFIG.name)} — Home">${logo}</a>
+  <nav class="nav" id="nav">${NAV.map(item => navItem(item, active)).join('')}</nav>
   <div class="hdr-r"><a class="phone" href="tel:+${CONFIG.phoneRaw}">${CONFIG.phone}</a>
-  <a class="cartbtn" href="cart.html" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" data-n="0"></span></a>
+  <a class="cartbtn" href="cart" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" data-n="0"></span></a>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div></header>`;
   const social = [CONFIG.facebook && `<a href="${esc(CONFIG.facebook)}" target="_blank" rel="noopener">Facebook</a>`, CONFIG.instagram && `<a href="${esc(CONFIG.instagram)}" target="_blank" rel="noopener">Instagram</a>`].filter(Boolean).join(' · ');
   $('#site-footer').innerHTML = `<footer class="ft"><div class="container"><div class="ft-g">
-  <div><a class="logo" href="index.html" aria-label="${esc(CONFIG.name)} — Home">${logo}</a><p>Top quality home appliances and reliable technical services to keep your home running smoothly.</p></div>
-  <div><h4>Explore</h4><ul>${NAV.slice(0, 4).map(([k, l, h]) => `<li><a href="${h}">${l}</a></li>`).join('')}<li><a href="shop.html">Shop</a></li></ul></div>
-  <div><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li><li><a href="cart.html">Cart</a></li></ul></div>
+  <div><a class="logo" href="./" aria-label="${esc(CONFIG.name)} — Home">${logo}</a><p>Top quality home appliances and reliable technical services to keep your home running smoothly.</p></div>
+  <div><h4>Explore</h4><ul>${[NAV[0], NAV[1], ...SERVICES, NAV[3]].map(([k, l, h]) => `<li><a href="${h}">${l}</a></li>`).join('')}</ul></div>
+  <div><h4>Company</h4><ul><li><a href="about">About Us</a></li><li><a href="contact">Contact Us</a></li><li><a href="cart">Cart</a></li></ul></div>
   <div><h4>Contact</h4><ul><li><a href="tel:+${CONFIG.phoneRaw}">${CONFIG.phone}</a></li><li><a href="mailto:${CONFIG.email}" style="word-break:break-all">${CONFIG.email}</a></li><li>${CONFIG.address}</li>${CONFIG.hours ? `<li>${esc(CONFIG.hours)}</li>` : ''}${social ? `<li>${social}</li>` : ''}</ul></div>
-  </div><div class="ft-b"><span>© ${new Date().getFullYear()} ${CONFIG.name}. All rights reserved.</span></div></div></footer>`;
+  </div><div class="ft-b"><span>© ${new Date().getFullYear()} ${CONFIG.name}. All rights reserved.</span></div>
+  <div class="ft-credit">Site by <a href="https://github.com/Brendanmebson" target="_blank" rel="noopener noreferrer">Brendan</a> · <a href="mailto:brendanmebson@gmail.com">brendanmebson@gmail.com</a></div></div></footer>`;
   /* floating WhatsApp chat button (hidden on checkout, where the order flow has its own) */
   if (page !== 'checkout') {
     const fab = document.createElement('a');
@@ -114,11 +124,26 @@ function renderChrome() {
   }
   /* mobile menu: toggle, and close on link tap, Escape or tap outside */
   const nav = $('#nav'), burger = $('#burger');
-  const setMenu = open => { nav.classList.toggle('open', open); burger.setAttribute('aria-expanded', open); };
+  const setDropdown = (dd, open) => { dd.classList.toggle('open', open); dd.querySelector('.dd-btn').setAttribute('aria-expanded', open); };
+  const closeDropdowns = () => nav.querySelectorAll('.dd.open').forEach(dd => setDropdown(dd, false));
+  const setMenu = open => { nav.classList.toggle('open', open); burger.setAttribute('aria-expanded', open); if (!open) closeDropdowns(); };
+  nav.querySelectorAll('.dd-btn').forEach(btn => btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const dd = btn.closest('.dd');
+    setDropdown(dd, !dd.classList.contains('open'));
+  }));
   burger.addEventListener('click', e => { e.stopPropagation(); setMenu(!nav.classList.contains('open')); });
   nav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); burger.focus(); } });
-  document.addEventListener('click', e => { if (nav.classList.contains('open') && !nav.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (nav.classList.contains('open')) { setMenu(false); burger.focus(); return; }
+    const openDd = nav.querySelector('.dd.open');
+    if (openDd) { setDropdown(openDd, false); openDd.querySelector('.dd-btn').focus(); }
+  });
+  document.addEventListener('click', e => {
+    if (nav.contains(e.target)) return;
+    if (nav.classList.contains('open')) setMenu(false); else closeDropdowns();
+  });
   Cart.paint();
 }
 const waLink = text => `https://wa.me/${CONFIG.phoneRaw}?text=${encodeURIComponent(text)}`;
@@ -128,8 +153,8 @@ const realSpecs = specs => specs.filter(([, v]) => !/^\[.*\]$/.test(String(v).tr
 
 /* ================= shared pieces ================= */
 function productCard(p) {
-  return `<article class="pcard"><a href="product.html?id=${p.id}" class="ph" aria-label="${esc(p.name)}">${imgOrPh(p, 0, 'Product image')}</a>
-  <div class="pb"><span class="pcat">${esc(p.cat)}</span><a class="pname" href="product.html?id=${p.id}">${esc(p.name)}</a><span class="pprice">${fmt(p.price)}</span>
+  return `<article class="pcard"><a href="product?id=${p.id}" class="ph" aria-label="${esc(p.name)}">${imgOrPh(p, 0, 'Product image')}</a>
+  <div class="pb"><span class="pcat">${esc(p.cat)}</span><a class="pname" href="product?id=${p.id}">${esc(p.name)}</a><span class="pprice">${fmt(p.price)}</span>
   <button class="btn btn-y btn-sm" data-add="${p.id}">Add to Cart</button></div></article>`;
 }
 document.addEventListener('click', e => {
@@ -153,7 +178,7 @@ const Pages = {
     $('#catgrid').innerHTML = CATEGORIES.map(c => {
       const n = PRODUCTS.filter(p => p.cat === c).length;
       const img = CAT_IMG[c] ? `<img src="${esc(CAT_IMG[c])}" alt="${esc(c)}" loading="lazy" decoding="async">` : 'Image placeholder';
-      return `<a class="card link svc" href="shop.html?cat=${encodeURIComponent(c)}"><div class="ph">${img}</div><h3>${esc(c)}</h3><p>${n}${n === 1 ? ' product' : ' products'}</p><span class="more">View →</span></a>`;
+      return `<a class="card link svc" href="shop?cat=${encodeURIComponent(c)}"><div class="ph">${img}</div><h3>${esc(c)}</h3><p>${n}${n === 1 ? ' product' : ' products'}</p><span class="more">View →</span></a>`;
     }).join('');
   },
 
@@ -181,7 +206,7 @@ const Pages = {
   product() {
     const p = byId(new URLSearchParams(location.search).get('id'));
     const root = $('#pd');
-    if (!p) { root.innerHTML = '<div class="empty" style="grid-column:1/-1">Product not found. <a href="shop.html" style="color:#1d5fb8;font-weight:600">Back to shop</a></div>'; return; }
+    if (!p) { root.innerHTML = '<div class="empty" style="grid-column:1/-1">Product not found. <a href="shop" style="color:#1d5fb8;font-weight:600">Back to shop</a></div>'; return; }
     document.title = p.name + ' — Tiens Electronics';
     const imgs = [p.img, ...(p.gallery || [])].filter(Boolean);
     const slots = imgs.length ? imgs : [''];
@@ -192,7 +217,7 @@ const Pages = {
       $$('.thumb').forEach((t, i) => t.classList.toggle('on', i === cur));
     };
     root.innerHTML = `<div><div class="ph gal-main" id="gmain"></div>${slots.length > 1 ? `<div class="thumbs">${slots.map((s, i) => `<button class="ph thumb" data-i="${i}" aria-label="Show image ${i + 1} of ${slots.length}"><img src="${esc(s)}" alt=""></button>`).join('')}</div>` : ''}</div>
-    <div><div class="crumb" style="color:#4b5563;font-size:14px"><a href="index.html">Home</a> / <a href="shop.html">Shop</a> / <a href="shop.html?cat=${encodeURIComponent(p.cat)}">${esc(p.cat)}</a></div>
+    <div><div class="crumb" style="color:#4b5563;font-size:14px"><a href="./">Home</a> / <a href="shop">Shop</a> / <a href="shop?cat=${encodeURIComponent(p.cat)}">${esc(p.cat)}</a></div>
     <span class="pcat" style="display:block;margin-top:14px">${esc(p.cat)}</span><h1>${esc(p.name)}</h1><div class="price">${fmt(p.price)}</div>
     <p class="lead2" style="margin-top:14px">${esc(p.desc)}</p>
     <div class="row" style="margin-top:26px"><div class="qty"><button id="qm" aria-label="Decrease quantity">−</button><span id="qv" aria-live="polite" aria-label="Quantity">1</span><button id="qp" aria-label="Increase quantity">+</button></div>
@@ -206,7 +231,7 @@ const Pages = {
     $('#qm').onclick = () => { qty = Math.max(1, qty - 1); $('#qv').textContent = qty; };
     $('#qp').onclick = () => { qty = Math.min(99, qty + 1); $('#qv').textContent = qty; };
     $('#addb').onclick = () => { Cart.add(p.id, qty); toast(qty + ' added to cart'); };
-    $('#buyb').onclick = () => { Cart.add(p.id, qty); location.href = 'cart.html'; };
+    $('#buyb').onclick = () => { Cart.add(p.id, qty); location.href = 'cart'; };
   },
 
   cart() {
@@ -215,8 +240,8 @@ const Pages = {
       const ls = Cart.lines();
       $('#cartempty').hidden = ls.length > 0;
       $('#cartfull').hidden = ls.length === 0;
-      root.innerHTML = ls.map(({ p, qty }) => `<div class="line"><a class="ph" href="product.html?id=${p.id}">${imgOrPh(p, 0, 'Image')}</a>
-      <div class="info"><a href="product.html?id=${p.id}">${esc(p.name)}</a><div style="color:#4b5563;font-size:14px;margin-top:2px">${fmt(p.price)} each</div><button class="rm" data-rm="${p.id}">Remove</button></div>
+      root.innerHTML = ls.map(({ p, qty }) => `<div class="line"><a class="ph" href="product?id=${p.id}">${imgOrPh(p, 0, 'Image')}</a>
+      <div class="info"><a href="product?id=${p.id}">${esc(p.name)}</a><div style="color:#4b5563;font-size:14px;margin-top:2px">${fmt(p.price)} each</div><button class="rm" data-rm="${p.id}">Remove</button></div>
       <div class="qty"><button data-m="${p.id}" aria-label="Decrease">−</button><span>${qty}</span><button data-p="${p.id}" aria-label="Increase">+</button></div>
       <div class="lt">${fmt(p.price * qty)}</div></div>`).join('');
       $('#sub').textContent = fmt(Cart.total());
