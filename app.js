@@ -3,6 +3,8 @@ const CONFIG = {
   name: 'Tiens Electronics & Technical Services Limited',
   phone: '+234 803 718 3515',
   phoneRaw: '2348037183515',
+  navPhone: '+44 20 7946 0000',     // shown in the navbar — PLACEHOLDER, replace with the real UK number
+  navPhoneRaw: '442079460000',
   email: 'tienselectronictechnicalservice@gmail.com',
   address: '17/19 Allen Avenue, Ikeja, Lagos',
   hours: '',        // e.g. 'Mon – Sat, 8am – 6pm' (hidden when empty)
@@ -81,8 +83,8 @@ function toast(msg) {
 /* ================= shared header / footer ================= */
 const SERVICES = [['appliances', 'Appliances', '/services/appliances'], ['hvac', 'HVAC', '/services/hvac'], ['repairs', 'Repairs', '/services/repairs']];
 const NAV = [['index', 'Home', '/'], ['services', 'Services', '/services'], ['about', 'About Us', '/about'], ['shop', 'Shop', '/shop'], ['contact', 'Contact Us', '/contact']];
-/* built-in logo: blue badge with a yellow "T" whose stem is a lightning bolt, plus the wordmark */
-const MARK = '<svg class="mark" viewBox="0 0 48 48" width="42" height="42" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#1d5fb8"/><rect x="12" y="10" width="24" height="6" rx="2" fill="#f9d54c"/><path d="M21.5 16h8l-3 9h5.5L20.5 40l3-11H17z" fill="#f9d54c"/></svg>';
+/* built-in logo: icon image (/images/logo-mark.svg) plus the wordmark */
+const MARK = '<img class="mark" src="/images/logo-mark.svg" width="42" height="42" alt="">';
 const BRAND = `${MARK}<span class="brand"><span class="brand-name">Tiens</span><span class="brand-sub">Electronics &amp; Technical Services</span></span>`;
 const CHECK ='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d5fb8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l3 3 5-6"/></svg>';
 
@@ -93,7 +95,7 @@ function renderChrome() {
   $('#site-header').innerHTML = `<header class="hdr"><div class="container hdr-in">
   <a class="logo" href="/" aria-label="${esc(CONFIG.name)} — Home">${logo}</a>
   <nav class="nav" id="nav">${NAV.map(([k, l, h]) => `<a href="${h}" class="${k === active ? 'active' : ''}">${l}</a>`).join('')}</nav>
-  <div class="hdr-r"><a class="phone" href="tel:+${CONFIG.phoneRaw}">${CONFIG.phone}</a>
+  <div class="hdr-r"><a class="phone" href="tel:+${CONFIG.navPhoneRaw}">${CONFIG.navPhone}</a>
   <a class="cartbtn" href="/cart" aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" data-n="0"></span></a>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div></header>`;
   const social = [CONFIG.facebook && `<a href="${esc(CONFIG.facebook)}" target="_blank" rel="noopener">Facebook</a>`, CONFIG.instagram && `<a href="${esc(CONFIG.instagram)}" target="_blank" rel="noopener">Instagram</a>`].filter(Boolean).join(' · ');

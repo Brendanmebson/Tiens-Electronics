@@ -14,7 +14,7 @@ button,input,select,textarea{font-family:inherit;font-size:16px}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
 .logo{display:flex;align-items:center;gap:10px;flex:none;color:var(--ink)}
 .logo img{height:46px;width:auto;max-width:200px;object-fit:contain}
-.logo .mark{flex:none;display:block}
+.logo .mark{flex:none;display:block;width:42px;height:42px;max-width:none}
 .brand{display:flex;flex-direction:column;line-height:1}
 .brand-name{font-size:24px;font-weight:700;letter-spacing:-.04em}
 .brand-sub{margin-top:4px;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -169,8 +169,7 @@ table.specs td:first-child{color:var(--muted);width:42%}
 .ft .logo{color:#fff}
 .ft .logo:hover{text-decoration:none}
 .ft .brand-sub{color:#dbeafe}
-.ft .mark rect:first-child{fill:#fff}
-.ft .mark rect+rect,.ft .mark path{fill:#1d5fb8}
+.ft .mark{border-radius:10px;box-shadow:0 0 0 2px rgba(255,255,255,.85)}
 .ft h4{margin:0 0 16px;font-size:15px;letter-spacing:.03em}
 .ft ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px}
 .ft a:hover{text-decoration:underline}
